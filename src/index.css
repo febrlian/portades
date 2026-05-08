@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-slate-900 dark:text-slate-100 antialiased bg-slate-50 dark:bg-slate-950 transition-colors duration-300;
+  }
+}
+
+/* Custom Components Patterns */
+@layer components {
+  .input-base {
+    @apply w-full px-4 py-2 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all dark:text-white;
+  }
+
+  .card-glass {
+    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-white/20 dark:border-slate-800/50 shadow-xl;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer utilities {
+  .print-preview {
+    font-family: "Times New Roman", Times, serif;
+    color: black !important;
+    background: white !important;
+    line-height: 1.5;
+  }
+  .print-preview p { margin-bottom: 1rem; }
+  .print-preview table { margin-bottom: 1rem; border-collapse: collapse; }
+  .print-preview td, .print-preview th { padding: 4px; vertical-align: top; }
+
+  @media print {
+    body * { visibility: hidden; }
+    .print-preview, .print-preview * { visibility: visible; }
+    .print-preview {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      padding: 2cm !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
