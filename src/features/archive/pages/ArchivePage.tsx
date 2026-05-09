@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useLetters } from "../../letters/hooks/useLetters";
 import { useCitizens } from "../../citizens/hooks/useCitizens";
 import { Search, Filter, FileText, CheckCircle, XCircle, Clock, Archive, ChevronDown, ChevronUp, User } from "lucide-react";
@@ -20,6 +20,11 @@ export const ArchivePage = () => {
   });
 
   const isLoading = isLettersLoading || isCitizensLoading;
+
+  const citizenMap = useMemo(() => {
+    if (!citizens) return new Map();
+    return new Map(citizens.map(c => [c.id, c]));
+  }, [citizens]);
 
   const toggleExpand = (id: string) => {
     setExpandedLetterId(prev => (prev === id ? null : id));
@@ -67,7 +72,7 @@ export const ArchivePage = () => {
           {archivedLetters && archivedLetters.length > 0 ? (
             archivedLetters.map((letter, index) => {
               const isExpanded = expandedLetterId === letter.id;
-              const citizen = citizens?.find(c => c.id === letter.citizenId);
+              const citizen = citizenMap.get(letter.citizenId);
 
               return (
                 <motion.div
