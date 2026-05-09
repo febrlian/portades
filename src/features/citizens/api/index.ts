@@ -1,4 +1,4 @@
-import { Citizen } from "@/shared/types";
+import type { Citizen } from "../../../shared/types/index.ts";
 
 let MOCK_CITIZENS: Citizen[] = [
   {
