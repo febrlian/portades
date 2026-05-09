@@ -6,8 +6,9 @@ import { motion } from "motion/react";
 import { CitizenFormModal } from "@/features/citizens/components/CitizenFormModal";
 import { useCreateCitizen } from "@/features/citizens/hooks/useCitizens";
 import { CitizenFormValues } from "@/features/citizens/types/schema";
+import { Citizen } from "@/shared/types";
 
-export const StepIdentify = ({ onNext }: { onNext: (citizen: any) => void }) => {
+export const StepIdentify = ({ onNext }: { onNext: (citizen: Citizen) => void }) => {
   const [nik, setNik] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const createMutation = useCreateCitizen();

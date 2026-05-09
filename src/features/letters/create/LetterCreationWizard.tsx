@@ -6,16 +6,23 @@ import { cn } from "@/shared/lib/utils";
 import { useForm } from "react-hook-form";
 import { useTemplates } from "@/features/templates/hooks/useTemplates";
 import { LetterTemplate } from "@/features/templates/types";
+import { Citizen } from "@/shared/types";
 
 const steps = ["Identifikasi", "Isi Formulir", "Review", "Selesai"];
 
+interface LetterFormValues {
+  purpose: string;
+  dynamicData: Record<string, any>;
+  letterType?: string;
+}
+
 export const LetterCreationWizard = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [citizen, setCitizen] = useState<any>(null);
+  const [citizen, setCitizen] = useState<Citizen | null>(null);
   const { data: templates = [], isLoading: isLoadingTemplates } = useTemplates();
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>("");
 
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<any>({
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<LetterFormValues>({
     defaultValues: {
       purpose: "",
       dynamicData: {}
@@ -42,12 +49,12 @@ export const LetterCreationWizard = () => {
 
   const dynamicDataWatch = watch("dynamicData");
 
-  const handleCitizenFound = (data: any) => {
+  const handleCitizenFound = (data: Citizen) => {
     setCitizen(data);
     setCurrentStep(1);
   };
 
-  const onFormSubmit = (data: any) => {
+  const onFormSubmit = (data: LetterFormValues) => {
     console.log("Form Data:", data);
     setCurrentStep(2);
   };
@@ -64,10 +71,10 @@ export const LetterCreationWizard = () => {
         const citizenMap: Record<string, any> = {
           fullName: citizen.fullName,
           nik: citizen.nik,
-          nokk: citizen.nokk,
+          nokk: citizen.familyId,
           address: citizen.address,
-          placeOfBirth: citizen.placeOfBirth,
-          dateOfBirth: citizen.dateOfBirth,
+          placeOfBirth: citizen.birthPlace,
+          dateOfBirth: citizen.birthDate,
           gender: citizen.gender === 'L' ? 'Laki-laki' : 'Perempuan',
           religion: citizen.religion,
           occupation: citizen.occupation,
