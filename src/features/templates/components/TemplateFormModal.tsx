@@ -147,10 +147,6 @@ export const TemplateFormModal = ({
 
   const isPending = createMutation.isPending || updateMutation.isPending;
 
-  const insertVariable = (variable: string) => {
-    // Basic insertion logic - we could improve this to insert at cursor if possible with Tiptap
-    // but for simplicity we current add it at the end or tell user to copy paste
-  };
 
   const onSubmit = async (data: TemplateFormValues) => {
     try {
