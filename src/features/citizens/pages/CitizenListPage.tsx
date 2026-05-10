@@ -9,6 +9,7 @@ import { CitizenFormValues } from "../types/schema";
 import { useAuthStore } from "@/shared/store/auth";
 import { CitizenFormModal } from "../components/CitizenFormModal";
 import { fetchCitizenByNIK } from "../api";
+import { Citizen } from "@/shared/types";
 
 export const CitizenListPage = () => {
   const { user } = useAuthStore();
@@ -56,7 +57,7 @@ export const CitizenListPage = () => {
     }
   };
 
-  const handleEditClick = (e: React.MouseEvent, citizen: any) => {
+  const handleEditClick = (e: React.MouseEvent, citizen: Citizen) => {
     e.stopPropagation();
     setEditingCitizenId(citizen.id);
     setModalInitialData({
