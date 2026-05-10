@@ -1,7 +1,15 @@
 import { apiClient } from "@/shared/api/client";
-import { User } from "@/shared/types";
+import { User, Role } from "@/shared/types";
 
-export const registerApi = async (credentials: any) => {
+export interface RegisterCredentials {
+  name: string;
+  email: string;
+  password?: string;
+  role?: Role;
+  nik: string;
+}
+
+export const registerApi = async (credentials: RegisterCredentials) => {
   await new Promise(resolve => setTimeout(resolve, 800)); // Simulate delay
 
   // Basic simulation of returning a user with token
@@ -16,7 +24,13 @@ export const registerApi = async (credentials: any) => {
     token: `mock-token-${credentials.email}`,
   };
 };
-export const loginApi = async (credentials: any) => {
+
+export interface LoginCredentials {
+  email: string;
+  password?: string;
+}
+
+export const loginApi = async (credentials: LoginCredentials) => {
   // Mock login logic
   if (credentials.email === "admin@desa.id" && credentials.password === "password") {
     return {
