@@ -6,6 +6,7 @@ import { loginApi } from "../api";
 import { useAuthStore } from "@/shared/store/auth";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 import { cn } from "@/shared/lib/utils";
 import { toast } from "sonner";
 

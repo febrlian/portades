@@ -1,0 +1,9 @@
+Title: 🧹 [Code Health] Replace native alert() with react-hot-toast notifications
+
+🎯 **What:** Replaced all usages of the native `window.alert()` with toast notifications using the `react-hot-toast` library across multiple components (`CitizenListPage.tsx`, `TemplateFormModal.tsx`, `StepIdentify.tsx`, `RegisterForm.tsx`, `LoginForm.tsx`). Also integrated the `<Toaster />` component into `App.tsx`.
+
+💡 **Why:** Native alerts provide a poor user experience, block the browser's main thread, and disrupt the application's flow. Moving to a lightweight toast library ensures non-blocking, modern UI notifications that are maintainable and consistent across the application.
+
+✅ **Verification:** Verified by checking type health via `npm run lint` and ensuring the application builds successfully with `npm run build`.
+
+✨ **Result:** A consistent and more pleasant error/success notification experience across the application, removing any thread-blocking native alerts.

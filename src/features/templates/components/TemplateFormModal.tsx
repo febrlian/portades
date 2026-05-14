@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 import * as z from "zod";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Loader2, Plus, Trash2, GripVertical, Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, List, Type, Image as ImageIcon, FileText } from "lucide-react";
