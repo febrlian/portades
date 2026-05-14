@@ -10,6 +10,7 @@ import { TemplateListPage } from "@/features/templates/pages/TemplateListPage";
 import { Layout } from "@/shared/components/Layout";
 import { ProtectedRoute } from "@/shared/components/ProtectedRoute";
 import { FeaturePlaceholder } from "@/shared/components/FeaturePlaceholder";
+import { Toaster } from "sonner";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,6 +24,7 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <Toaster position="top-center" richColors />
       <BrowserRouter>
         <Routes>
           {/* Public Routes */}
