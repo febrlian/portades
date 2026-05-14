@@ -4,6 +4,7 @@ import { FileText, Plus, Edit, Trash2, CheckCircle, XCircle, Eye, X } from "luci
 import { motion } from "motion/react";
 import { cn } from "@/shared/lib/utils";
 import { TemplateFormModal } from "../components/TemplateFormModal";
+import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { LetterTemplate } from "../types";
 
 export const TemplateListPage = () => {
@@ -13,6 +14,7 @@ export const TemplateListPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTemplate, setEditingTemplate] = useState<LetterTemplate | undefined>(undefined);
   const [previewTemplate, setPreviewTemplate] = useState<LetterTemplate | null>(null);
+  const [templateToDelete, setTemplateToDelete] = useState<string | null>(null);
 
   const generatePreviewContent = (template: LetterTemplate) => {
     let html = template.headerContent ? `<div class="mb-6">${template.headerContent}</div>${template.content}` : template.content;
@@ -33,9 +35,14 @@ export const TemplateListPage = () => {
     setIsModalOpen(true);
   };
 
-  const handleDelete = async (id: string) => {
-    if (confirm("Apakah anda yakin ingin menghapus template ini?")) {
-      await deleteMutation.mutateAsync(id);
+  const handleDelete = (id: string) => {
+    setTemplateToDelete(id);
+  };
+
+  const confirmDelete = async () => {
+    if (templateToDelete) {
+      await deleteMutation.mutateAsync(templateToDelete);
+      setTemplateToDelete(null);
     }
   };
 
@@ -177,6 +184,16 @@ export const TemplateListPage = () => {
           </div>
         </div>
       )}
+
+      <ConfirmModal
+        isOpen={!!templateToDelete}
+        onClose={() => setTemplateToDelete(null)}
+        onConfirm={confirmDelete}
+        title="Hapus Template"
+        message="Apakah anda yakin ingin menghapus template ini? Tindakan ini tidak dapat dibatalkan."
+        confirmText="Hapus"
+        isLoading={deleteMutation.isPending}
+      />
     </div>
   );
 };
