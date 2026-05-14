@@ -5,6 +5,7 @@ import * as z from "zod";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Loader2, Plus, Trash2, GripVertical, Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, List, Type, Image as ImageIcon, FileText } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
+import { toast } from "sonner";
 import { useCreateTemplate, useUpdateTemplate } from "../hooks/useTemplates";
 import { LetterTemplate, TemplateField } from "../types";
 import { useEditor, EditorContent } from '@tiptap/react';
@@ -171,7 +172,9 @@ export const TemplateFormModal = ({
       onClose();
     } catch (error) {
       console.error(error);
-      alert("Terjadi kesalahan");
+      toast.error("Terjadi kesalahan", {
+        description: error instanceof Error ? error.message : "Gagal menyimpan template"
+      });
     }
   };
 
