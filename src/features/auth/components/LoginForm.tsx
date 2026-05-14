@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { cn } from "@/shared/lib/utils";
+import { toast } from "sonner";
 
 const loginSchema = z.object({
   email: z.string().email("Email tidak valid"),
@@ -35,7 +36,7 @@ export const LoginForm = ({ onToggleMode }: { onToggleMode: () => void }) => {
       }
     },
     onError: (error: any) => {
-      toast.error(error.message);
+      toast.error("Gagal masuk", { description: error.message || "Terjadi kesalahan" });
     },
   });
 
