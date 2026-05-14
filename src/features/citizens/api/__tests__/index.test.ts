@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { fetchCitizens } from '../index.ts';
+import { fetchCitizens, updateCitizen } from '../index.ts';
 
 describe('fetchCitizens', () => {
   it('should fetch all citizens when no filters are provided', async () => {
@@ -47,5 +47,34 @@ describe('fetchCitizens', () => {
   it('should return empty array when no matches found', async () => {
     const citizens = await fetchCitizens({ search: 'NonExistent' });
     assert.strictEqual(citizens.length, 0);
+  });
+});
+
+describe('updateCitizen', () => {
+  it('should throw an error when updating a non-existent citizen', async () => {
+    const nonExistentId = 'non-existent-id-123';
+    const updateData = {
+      nik: "1234567890123456",
+      fullName: "Test User",
+      address: "Test Address",
+      rt: "01",
+      rw: "01",
+      gender: "L" as const,
+      birthPlace: "Test City",
+      birthDate: "1990-01-01",
+      religion: "Islam",
+      occupation: "Test Occupation",
+      maritalStatus: "Kawin",
+    };
+
+    await assert.rejects(
+      async () => {
+        await updateCitizen(nonExistentId, updateData);
+      },
+      (err: Error) => {
+        assert.strictEqual(err.message, 'Not found');
+        return true;
+      }
+    );
   });
 });
