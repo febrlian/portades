@@ -6,6 +6,7 @@ import { loginApi } from "../api";
 import { useAuthStore } from "@/shared/store/auth";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 import { cn } from "@/shared/lib/utils";
 
 const loginSchema = z.object({
@@ -34,7 +35,7 @@ export const LoginForm = ({ onToggleMode }: { onToggleMode: () => void }) => {
       }
     },
     onError: (error: any) => {
-      alert(error.message);
+      toast.error(error.message);
     },
   });
 

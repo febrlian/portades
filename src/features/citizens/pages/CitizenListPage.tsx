@@ -10,6 +10,7 @@ import { useAuthStore } from "@/shared/store/auth";
 import { CitizenFormModal } from "../components/CitizenFormModal";
 import { fetchCitizenByNIK } from "../api";
 import { Citizen } from "@/shared/types";
+import toast from "react-hot-toast";
 
 export const CitizenListPage = () => {
   const { user } = useAuthStore();
@@ -39,7 +40,7 @@ export const CitizenListPage = () => {
     if (data.nik) {
       const existing = await fetchCitizenByNIK(data.nik);
       if (existing && existing.id !== editingCitizenId) {
-        alert("NIK sudah terdaftar");
+        toast.error("NIK sudah terdaftar");
         return;
       }
     }

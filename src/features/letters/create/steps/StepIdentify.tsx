@@ -7,6 +7,7 @@ import { CitizenFormModal } from "@/features/citizens/components/CitizenFormModa
 import { useCreateCitizen } from "@/features/citizens/hooks/useCitizens";
 import { CitizenFormValues } from "@/features/citizens/types/schema";
 import { Citizen } from "@/shared/types";
+import toast from "react-hot-toast";
 
 export const StepIdentify = ({ onNext }: { onNext: (citizen: Citizen) => void }) => {
   const [nik, setNik] = useState("");
@@ -39,7 +40,7 @@ export const StepIdentify = ({ onNext }: { onNext: (citizen: Citizen) => void })
       onNext(newCitizen); // Proceed with the newly created citizen
     } catch (error) {
       console.error(error);
-      alert("Gagal menambahkan warga.");
+      toast.error("Gagal menambahkan warga.");
     }
   };
 

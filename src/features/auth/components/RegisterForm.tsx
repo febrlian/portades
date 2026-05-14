@@ -7,6 +7,7 @@ import { useAuthStore } from "@/shared/store/auth";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
+import toast from "react-hot-toast";
 
 const registerSchema = z.object({
   name: z.string().min(3, "Nama minimal 3 karakter"),
@@ -64,7 +65,7 @@ export const RegisterForm = ({ onToggleMode }: { onToggleMode: () => void }) => 
       }
     },
     onError: (error: any) => {
-      alert(error.message);
+      toast.error(error.message);
     },
   });
 
